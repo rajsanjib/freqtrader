@@ -1,7 +1,7 @@
 {
   "timezone": "Asia/Kathmandu",
   "$schema": "https://schema.freqtrade.io/schema.json",
-  "max_open_trades": "${MAX_OPEN_TRADES:50}",
+  "max_open_trades": 50,
   "stake_currency": "USDT",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
