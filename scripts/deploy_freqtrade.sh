@@ -57,6 +57,14 @@ prepare_server() {
   fi
 }
 
+# Install FreqUI
+install_ui() {
+  log "Installing FreqUI"
+  # We'll use a temporary container to install the UI
+  docker run --rm -v "$FREQTRADE_DIR/user_data:/freqtrade/user_data" freqtradeorg/freqtrade:develop install-ui
+  log "FreqUI installation completed"
+}
+
 # Deploy FreqTrade
 deploy() {
   log "Starting FreqTrade deployment"
@@ -123,6 +131,9 @@ backup
 
 # Prepare the server environment
 prepare_server
+
+# Install FreqUI
+install_ui
 
 # Deploy FreqTrade
 deploy

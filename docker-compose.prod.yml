@@ -1,13 +1,14 @@
 ---
 services:
   freqtrade:
-    image: freqtradeorg/freqtrade:stable
+    # Use the "develop_plot" tag which includes the UI
+    image: freqtradeorg/freqtrade:develop_plot
     restart: unless-stopped
     container_name: freqtrade
     user: "1000:1000" # Run as user 1000 to avoid permission issues
     volumes:
       - "./user_data:/freqtrade/user_data"
-    # Expose API on port 8080 (localhost only)
+    # Expose API on port 8080 (all interfaces)
     ports:
       - "8080:8080"
     command: >

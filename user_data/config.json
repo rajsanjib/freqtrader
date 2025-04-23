@@ -34,12 +34,16 @@
   },
   "exchange": {
     "name": "binance",
-    "key": "Fo5KELhgeXk18Ln7JsrlrFC3yf8M19kDe7P7PeJ0tTB2YZhQwStrB7NLobw2ezoI",
-    "secret": "HUl7f9z9IXXOQmaMBHJKN5C8MOzkOsEBddfH5kbrXJeocNI9zSFBijwpo6Idb3S5",
+    "key": "",
+    "secret": "",
     "ccxt_config": {},
     "ccxt_async_config": {},
-    "pair_whitelist": [""],
-    "pair_blacklist": ["HYPER/USDT"]
+    "pair_whitelist": [
+      ""
+    ],
+    "pair_blacklist": [
+      "HYPER/USDT"
+    ]
   },
   "pairlists": [
     {
@@ -53,12 +57,12 @@
   "timeframe": "15m",
   "telegram": {
     "enabled": true,
-    "token": "7797937845:AAFCMc4LCN-XpG-GHB9qIOvr8coTtDSEJ-g",
-    "chat_id": "-1002590049157"
+    "token": "",
+    "chat_id": ""
   },
   "api_server": {
     "enabled": true,
-    "listen_ip_address": "127.0.0.1",
+    "listen_ip_address": "0.0.0.0",
     "listen_port": 8080,
     "verbosity": "error",
     "enable_openapi": false,
@@ -67,6 +71,12 @@
     "CORS_origins": [],
     "username": "freqtrader",
     "password": "sanjib"
+  },
+  "webserver": {
+    "enabled": true,
+    "ui_path": "/freqtrade/freqtrade/rpc/api_server/ui/",
+    "listen_ip_address": "0.0.0.0",
+    "listen_port": 8080
   },
   "bot_name": "ShortTermTrader",
   "initial_state": "running",
