@@ -5,6 +5,7 @@ services:
     image: freqtradeorg/freqtrade:stable
     restart: unless-stopped
     container_name: freqtrade
+    user: "1000:1000" # Add this line to run as user 1000 (typically matches the server user)
     volumes:
       - "./user_data:/freqtrade/user_data"
     # Expose API on port 8080 (localhost only)
@@ -35,7 +36,7 @@ services:
     image: prom/prometheus
     container_name: prometheus
     restart: unless-stopped
-    user: "1000:1000"  # Use a specific user to avoid permission issues
+    user: "1000:1000" # Use a specific user to avoid permission issues
     volumes:
       - ./monitoring/prometheus.yml:/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus/data

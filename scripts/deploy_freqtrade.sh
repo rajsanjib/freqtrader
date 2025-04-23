@@ -38,6 +38,25 @@ backup() {
   fi
 }
 
+# Prepare server environment
+prepare_server() {
+  log "Preparing server environment"
+  # Call the prepare_server.sh script if it exists
+  if [ -f "$FREQTRADE_DIR/scripts/prepare_server.sh" ]; then
+    bash "$FREQTRADE_DIR/scripts/prepare_server.sh"
+    
+    # Set direct permissions on logs directory to ensure FreqTrade can write to it
+    mkdir -p "$FREQTRADE_DIR/user_data/logs"
+    chmod -R 777 "$FREQTRADE_DIR/user_data/logs"
+    log "Log directory permissions refreshed"
+    
+    # Ensure monitoring directory is properly set up
+    mkdir -p "$FREQTRADE_DIR/monitoring"
+  else
+    log "Warning: prepare_server.sh not found, skipping environment preparation"
+  fi
+}
+
 # Deploy FreqTrade
 deploy() {
   log "Starting FreqTrade deployment"
@@ -48,9 +67,13 @@ deploy() {
     touch "$ENV_FILE"
   fi
   
+  # Stop any running containers first
+  log "Stopping any existing containers"
+  cd "$FREQTRADE_DIR"
+  docker-compose -f docker-compose.prod.yml down || true
+  
   # Pull latest docker images
   log "Pulling latest Docker images"
-  cd "$FREQTRADE_DIR"
   docker-compose -f docker-compose.prod.yml pull
   
   # Start or restart the services
@@ -78,6 +101,10 @@ check_health() {
     return 1
   fi
   
+  # Give the API time to start up (add a delay)
+  log "Waiting for API to start up..."
+  sleep 10
+  
   # Check if API is responding
   if ! curl -s http://localhost:8080/api/v1/ping > /dev/null; then
     log "ERROR: FreqTrade API is not responding!"
@@ -93,6 +120,9 @@ log "=== Starting FreqTrade deployment script ==="
 
 # Create backup before deployment
 backup
+
+# Prepare the server environment
+prepare_server
 
 # Deploy FreqTrade
 deploy

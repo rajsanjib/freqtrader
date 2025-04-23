@@ -61,7 +61,12 @@ jobs:
           scp scripts/deploy_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           scp scripts/monitor_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           scp scripts/secure_config.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
+          scp scripts/prepare_server.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/freqtrade/scripts/*.sh"
+
+      - name: Run server preparation script
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "cd ~/freqtrade && scripts/prepare_server.sh"
 
       - name: Run deployment script on server
         run: |
