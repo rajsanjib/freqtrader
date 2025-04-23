@@ -1,11 +1,10 @@
 ---
-version: "3"
 services:
   freqtrade:
     image: freqtradeorg/freqtrade:stable
     restart: unless-stopped
     container_name: freqtrade
-    user: "1000:1000" # Add this line to run as user 1000 (typically matches the server user)
+    user: "1000:1000" # Run as user 1000 to avoid permission issues
     volumes:
       - "./user_data:/freqtrade/user_data"
     # Expose API on port 8080 (localhost only)
@@ -23,43 +22,3 @@ services:
       - FREQTRADE__TELEGRAM__CHAT_ID=${TELEGRAM_CHAT_ID}
       - FREQTRADE__EXCHANGE__KEY=${EXCHANGE_KEY}
       - FREQTRADE__EXCHANGE__SECRET=${EXCHANGE_SECRET}
-
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 3600 --cleanup
-
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    restart: unless-stopped
-    user: "1000:1000" # Use a specific user to avoid permission issues
-    volumes:
-      - ./monitoring/prometheus.yml:/prometheus/prometheus.yml:ro
-      - prometheus_data:/prometheus/data
-    ports:
-      - "127.0.0.1:9090:9090"
-    command:
-      - "--config.file=/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus/data"
-      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
-      - "--web.console.templates=/usr/share/prometheus/consoles"
-
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: unless-stopped
-    depends_on:
-      - prometheus
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
-    ports:
-      - "127.0.0.1:3000:3000"
-
-volumes:
-  prometheus_data:
-  grafana_data:

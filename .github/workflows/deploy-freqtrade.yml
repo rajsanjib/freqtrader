@@ -51,7 +51,7 @@ jobs:
 
       - name: Create necessary directories on server
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "mkdir -p ~/freqtrade/scripts ~/freqtrade/user_data ~/freqtrade/monitoring/grafana/provisioning/dashboards ~/freqtrade/monitoring/grafana/provisioning/datasources"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "mkdir -p ~/freqtrade/scripts ~/freqtrade/user_data"
 
       - name: Deploy to server
         run: |
@@ -60,7 +60,6 @@ jobs:
           scp .env ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/
           scp scripts/deploy_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           scp scripts/monitor_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
-          scp scripts/secure_config.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           scp scripts/prepare_server.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/freqtrade/scripts/*.sh"
 

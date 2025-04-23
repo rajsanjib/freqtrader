@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# FreqTrade monitoring script
+# FreqTrade monitoring script - Lightweight version
 # This script checks if the FreqTrade bot is running and restarts it if needed
-# Recommended to run as a cron job every 5-15 minutes
 
 LOG_FILE="/var/log/freqtrade_monitor.log"
 FREQTRADE_DIR="$HOME/freqtrade"
@@ -52,6 +51,23 @@ check_api() {
   return 0
 }
 
+# Check system resources
+check_resources() {
+  # Check available memory
+  local free_memory=$(free -m | awk '/^Mem:/ {print $4}')
+  if [ $free_memory -lt 200 ]; then
+    log "WARNING: System memory is running low (${free_memory}MB free)"
+    send_telegram_notification "⚠️ Server memory is running low (${free_memory}MB free)"
+  fi
+  
+  # Check disk space
+  local free_disk=$(df -m / | awk 'NR==2 {print $4}')
+  if [ $free_disk -lt 1000 ]; then
+    log "WARNING: Disk space is running low (${free_disk}MB free)"
+    send_telegram_notification "⚠️ Server disk space is running low (${free_disk}MB free)"
+  fi
+}
+
 # Restart FreqTrade
 restart_freqtrade() {
   log "Restarting FreqTrade"
@@ -62,6 +78,9 @@ restart_freqtrade() {
 
 # Main execution
 log "=== Starting FreqTrade monitoring check ==="
+
+# Check system resources
+check_resources
 
 # Check if container is running
 if ! check_container; then
