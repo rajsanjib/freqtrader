@@ -35,14 +35,15 @@ services:
     image: prom/prometheus
     container_name: prometheus
     restart: unless-stopped
+    user: "1000:1000"  # Use a specific user to avoid permission issues
     volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus_data:/prometheus
+      - ./monitoring/prometheus.yml:/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus/data
     ports:
       - "127.0.0.1:9090:9090"
     command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
+      - "--config.file=/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus/data"
       - "--web.console.libraries=/usr/share/prometheus/console_libraries"
       - "--web.console.templates=/usr/share/prometheus/consoles"
 
