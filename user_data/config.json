@@ -34,16 +34,12 @@
   },
   "exchange": {
     "name": "binance",
-    "key": "",
-    "secret": "",
+    "key": "Fo5KELhgeXk18Ln7JsrlrFC3yf8M19kDe7P7PeJ0tTB2YZhQwStrB7NLobw2ezoI",
+    "secret": "HUl7f9z9IXXOQmaMBHJKN5C8MOzkOsEBddfH5kbrXJeocNI9zSFBijwpo6Idb3S5",
     "ccxt_config": {},
     "ccxt_async_config": {},
-    "pair_whitelist": [
-      ""
-    ],
-    "pair_blacklist": [
-      "HYPER/USDT"
-    ]
+    "pair_whitelist": [""],
+    "pair_blacklist": ["HYPER/USDT"]
   },
   "pairlists": [
     {
@@ -57,8 +53,8 @@
   "timeframe": "15m",
   "telegram": {
     "enabled": true,
-    "token": "",
-    "chat_id": ""
+    "token": "7874350042:AAE2VDQhl3hKcKXDaCRtW3lM3MHMM4TB22I",
+    "chat_id": "-1002559332283"
   },
   "api_server": {
     "enabled": true,

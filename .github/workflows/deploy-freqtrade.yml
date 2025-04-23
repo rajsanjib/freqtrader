@@ -46,8 +46,8 @@ jobs:
 
       - name: Create secure config for testing
         run: |
-          # Create a temporary redacted config for testing
-          cat user_data/config.json | jq '.exchange.key = "dummy" | .exchange.secret = "dummy" | .telegram.token = "dummy" | .telegram.chat_id = "dummy"' > user_data/config.test.json
+          # Create a temporary redacted config for testing with dry_run enabled
+          cat user_data/config.json | jq '.exchange.key = "dummy" | .exchange.secret = "dummy" | .telegram.token = "dummy" | .telegram.chat_id = "dummy" | .dry_run = true' > user_data/config.test.json
 
       - name: Test configuration
         run: |
