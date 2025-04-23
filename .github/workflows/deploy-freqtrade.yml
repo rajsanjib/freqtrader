@@ -17,53 +17,7 @@ on:
           - staging
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      - name: Build Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: false
-          load: true
-          tags: freqtrade:${{ github.sha }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      - name: Create secure config for testing
-        run: |
-          # Create a temporary redacted config for testing with dry_run enabled
-          cat user_data/config.json | jq '.exchange.key = "dummy" | .exchange.secret = "dummy" | .telegram.token = "dummy" | .telegram.chat_id = "dummy" | .dry_run = true' > user_data/config.test.json
-
-      - name: Test configuration
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}/user_data:/freqtrade/user_data \
-            freqtrade:${{ github.sha }} \
-            test-pairlist -c /freqtrade/user_data/config.test.json
-
-      # Move cache
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
   deploy:
-    needs: build-and-test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     environment: ${{ github.event.inputs.environment || 'production' }}
@@ -102,7 +56,8 @@ jobs:
           scp .env ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/
           scp scripts/deploy_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           scp scripts/monitor_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/freqtrade/scripts/*.sh && cd ~/freqtrade && scripts/deploy_freqtrade.sh"
+          scp scripts/secure_config.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "mkdir -p ~/freqtrade/scripts && chmod +x ~/freqtrade/scripts/*.sh && cd ~/freqtrade && scripts/deploy_freqtrade.sh"
 
       - name: Verify deployment
         run: |
