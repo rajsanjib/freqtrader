@@ -49,15 +49,23 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
 
+      - name: Create necessary directories on server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "mkdir -p ~/freqtrade/scripts ~/freqtrade/user_data ~/freqtrade/monitoring/grafana/provisioning/dashboards ~/freqtrade/monitoring/grafana/provisioning/datasources"
+
       - name: Deploy to server
         run: |
           scp docker-compose.prod.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/
-          scp -r user_data ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/
+          scp -r user_data/* ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/user_data/
           scp .env ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/
           scp scripts/deploy_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           scp scripts/monitor_freqtrade.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
           scp scripts/secure_config.sh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/freqtrade/scripts/
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "mkdir -p ~/freqtrade/scripts && chmod +x ~/freqtrade/scripts/*.sh && cd ~/freqtrade && scripts/deploy_freqtrade.sh"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/freqtrade/scripts/*.sh"
+
+      - name: Run deployment script on server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "cd ~/freqtrade && scripts/deploy_freqtrade.sh"
 
       - name: Verify deployment
         run: |
