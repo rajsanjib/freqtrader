@@ -71,7 +71,7 @@
   "bot_name": "ShortTermTrader",
   "initial_state": "running",
   "force_entry_enable": false,
-  "strategy": "HarmonicDivergence",
+  "strategy": "SampleStrategy",
   "strategy_path": "user_data/strategies/",
   "internals": {
     "process_throttle_secs": 5
