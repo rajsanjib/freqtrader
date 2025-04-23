@@ -53,8 +53,8 @@
   "timeframe": "15m",
   "telegram": {
     "enabled": true,
-    "token": "7874350042:AAE2VDQhl3hKcKXDaCRtW3lM3MHMM4TB22I",
-    "chat_id": "-1002559332283"
+    "token": "7797937845:AAFCMc4LCN-XpG-GHB9qIOvr8coTtDSEJ-g",
+    "chat_id": "-1002590049157"
   },
   "api_server": {
     "enabled": true,
@@ -71,7 +71,7 @@
   "bot_name": "ShortTermTrader",
   "initial_state": "running",
   "force_entry_enable": false,
-  "strategy": "SampleStrategy",
+  "strategy": "HarmonicDivergence",
   "strategy_path": "user_data/strategies/",
   "internals": {
     "process_throttle_secs": 5
