@@ -1,12 +1,12 @@
 {
   "timezone": "Asia/Kathmandu",
   "$schema": "https://schema.freqtrade.io/schema.json",
-  "max_open_trades": 15,
+  "max_open_trades": 5,
   "stake_currency": "USDT",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
   "fiat_display_currency": "USD",
-  "dry_run": false,
+  "dry_run": true,
   "dry_run_wallet": 1000,
   "cancel_open_orders_on_exit": false,
   "trading_mode": "spot",
@@ -77,7 +77,7 @@
   "bot_name": "ShortTermTrader",
   "initial_state": "running",
   "force_entry_enable": false,
-  "strategy": "HarmonicDivergence",
+  "strategy": "ElliotV5_SMA",
   "strategy_path": "user_data/strategies/",
   "internals": {
     "process_throttle_secs": 5
