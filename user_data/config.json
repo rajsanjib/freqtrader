@@ -1,12 +1,12 @@
 {
   "timezone": "Asia/Kathmandu",
   "$schema": "https://schema.freqtrade.io/schema.json",
-  "max_open_trades": 5,
+  "max_open_trades": 1,
   "stake_currency": "USDT",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
   "fiat_display_currency": "USD",
-  "dry_run": true,
+  "dry_run": false,
   "dry_run_wallet": 1000,
   "cancel_open_orders_on_exit": false,
   "trading_mode": "spot",
@@ -33,24 +33,21 @@
     "order_book_top": 1
   },
   "exchange": {
-    "name": "binance",
-    "key": "",
-    "secret": "",
+    "name": "kucoin",
+    "key": "68181e5bc1dfd90001052be1",
+    "secret": "9e5ca05b-deaf-4baf-8c1e-e4897cafcaa8",
+    "password": "Aapsara@169",
     "ccxt_config": {},
     "ccxt_async_config": {},
-    "pair_whitelist": [""],
-    "pair_blacklist": ["HYPER/USDT"]
+    "pair_whitelist": ["ZBCN/USDT"],
+    "pair_blacklist": [""]
   },
   "pairlists": [
     {
-      "method": "VolumePairList",
-      "number_assets": 50,
-      "sort_key": "quoteVolume",
-      "min_value": 10000,
-      "refresh_period": 1800
+      "method": "StaticPairList"
     }
   ],
-  "timeframe": "15m",
+  "timeframe": "5m",
   "telegram": {
     "enabled": true,
     "token": "",
@@ -74,10 +71,10 @@
     "listen_ip_address": "0.0.0.0",
     "listen_port": 8080
   },
-  "bot_name": "ShortTermTrader",
+  "bot_name": "Khopanath",
   "initial_state": "running",
   "force_entry_enable": false,
-  "strategy": "ElliotV5_SMA",
+  "strategy": "HarmonicDivergence",
   "strategy_path": "user_data/strategies/",
   "internals": {
     "process_throttle_secs": 5
