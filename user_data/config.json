@@ -1,7 +1,7 @@
 {
   "timezone": "Asia/Kathmandu",
   "$schema": "https://schema.freqtrade.io/schema.json",
-  "max_open_trades": 1,
+  "max_open_trades": 5,
   "stake_currency": "USDT",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
@@ -33,19 +33,23 @@
     "order_book_top": 1
   },
   "exchange": {
-    "name": "kucoin",
-    "key": "68181e5bc1dfd90001052be1",
-    "secret": "9e5ca05b-deaf-4baf-8c1e-e4897cafcaa8",
+    "name": "binance",
+    "key": "",
+    "secret": "",
     "password": "Aapsara@169",
     "ccxt_config": {},
     "ccxt_async_config": {},
-    "pair_whitelist": ["ZBCN/USDT"],
+    "pair_whitelist": [""],
     "pair_blacklist": [""]
   },
   "pairlists": [
     {
-      "method": "StaticPairList"
-    }
+      "method": "VolumePairList",
+      "number_assets": 50,
+      "sort_key": "quoteVolume",
+      "refresh_period": 1800
+    },
+    { "method": "AgeFilter", "min_days_listed": 100 }
   ],
   "timeframe": "5m",
   "telegram": {
@@ -74,7 +78,7 @@
   "bot_name": "Khopanath",
   "initial_state": "running",
   "force_entry_enable": false,
-  "strategy": "HarmonicDivergence",
+  "strategy": "ElliotV5_SMA",
   "strategy_path": "user_data/strategies/",
   "internals": {
     "process_throttle_secs": 5
