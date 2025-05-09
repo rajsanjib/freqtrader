@@ -41,7 +41,13 @@
     "ccxt_config": {},
     "ccxt_async_config": {},
     "pair_whitelist": [""],
-    "pair_blacklist": ["USDC/USDT", "FUSD/USDT", "EUR/USDT"]
+    "pair_blacklist": [
+      "USDC/USDT",
+      "FUSD/USDT",
+      "EUR/USDT",
+      "FLUSD/USDT",
+      "FDUSD/USDT"
+    ]
   },
   "pairlists": [
     {
@@ -52,7 +58,7 @@
     },
     {
       "method": "AgeFilter",
-      "min_days_listed": 100
+      "min_days_listed": 300
     }
   ],
   "timeframe": "5m",
