@@ -11,6 +11,7 @@
   "cancel_open_orders_on_exit": false,
   "trading_mode": "spot",
   "margin_mode": "",
+  "stoploss": -0.5,
   "unfilledtimeout": {
     "entry": 10,
     "exit": 10,
@@ -40,16 +41,19 @@
     "ccxt_config": {},
     "ccxt_async_config": {},
     "pair_whitelist": [""],
-    "pair_blacklist": [""]
+    "pair_blacklist": ["USDC/USDT", "FUSD/USDT", "EUR/USDT"]
   },
   "pairlists": [
     {
       "method": "VolumePairList",
-      "number_assets": 50,
+      "number_assets": 100,
       "sort_key": "quoteVolume",
       "refresh_period": 1800
     },
-    { "method": "AgeFilter", "min_days_listed": 100 }
+    {
+      "method": "AgeFilter",
+      "min_days_listed": 100
+    }
   ],
   "timeframe": "5m",
   "telegram": {
@@ -78,7 +82,7 @@
   "bot_name": "Khopanath",
   "initial_state": "running",
   "force_entry_enable": false,
-  "strategy": "ElliotV5_SMA",
+  "strategy": "HarmonicDivergence",
   "strategy_path": "user_data/strategies/",
   "internals": {
     "process_throttle_secs": 5
