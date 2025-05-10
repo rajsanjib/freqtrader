@@ -1,7 +1,7 @@
 {
   "timezone": "Asia/Kathmandu",
   "$schema": "https://schema.freqtrade.io/schema.json",
-  "max_open_trades": 1,
+  "max_open_trades": 5,
   "stake_currency": "USDT",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
@@ -11,7 +11,7 @@
   "cancel_open_orders_on_exit": false,
   "trading_mode": "spot",
   "margin_mode": "",
-  "stoploss": -0.5,
+  "stoploss": -0.05,
   "unfilledtimeout": {
     "entry": 10,
     "exit": 10,
@@ -47,7 +47,11 @@
       "EUR/USDT",
       "FLUSD/USDT",
       "FDUSD/USDT",
-      "OM/USDT"
+      "OM/USDT",
+      "PENGU/USDT",
+      "ADA/USDT",
+      "WLD/USDT",
+      "BONK/USDT"
     ]
   },
   "pairlists": [
