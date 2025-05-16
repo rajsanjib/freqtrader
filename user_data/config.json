@@ -3,7 +3,7 @@
   "$schema": "https://schema.freqtrade.io/schema.json",
   "max_open_trades": 5,
   "stake_currency": "USDT",
-  "stake_amount": "unlimited",
+  "stake_amount": 1000,
   "tradable_balance_ratio": 0.99,
   "fiat_display_currency": "USD",
   "dry_run": false,
@@ -11,7 +11,7 @@
   "cancel_open_orders_on_exit": false,
   "trading_mode": "spot",
   "margin_mode": "",
-  "stoploss": -0.05,
+  "stoploss": -0.5,
   "unfilledtimeout": {
     "entry": 10,
     "exit": 10,
@@ -40,7 +40,26 @@
     "password": "Aapsara@169",
     "ccxt_config": {},
     "ccxt_async_config": {},
-    "pair_whitelist": [""],
+    "pair_whitelist": [
+      "ETH/USDT",
+      "IO/USDT",
+      "BNB/USDT",
+      "SOL/USDT",
+      "MATIC/USDT",
+      "DOGE/USDT",
+      "LTC/USDT",
+      "TRX/USDT",
+      "DOT/USDT",
+      "ETC/USDT",
+      "XRP/USDT",
+      "PEPE/USDT",
+      "XAI/USDT",
+      "TAO/USDT",
+      "SIGN/USDT",
+      "WIF/USDT",
+      "SHIB/USDT",
+      "SUI/USDT"
+    ],
     "pair_blacklist": [
       "USDC/USDT",
       "FUSD/USDT",
@@ -57,7 +76,7 @@
   "pairlists": [
     {
       "method": "VolumePairList",
-      "number_assets": 100,
+      "number_assets": 20,
       "sort_key": "quoteVolume",
       "refresh_period": 1800
     },
@@ -66,7 +85,7 @@
       "min_days_listed": 300
     }
   ],
-  "timeframe": "5m",
+  "timeframe": "15m",
   "telegram": {
     "enabled": true,
     "token": "",
